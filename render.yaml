@@ -1,7 +1,7 @@
 services:
   # See https://render.com/docs/blueprint-spec for more info on render blueprints
   - type: web
-    name: français-vs-anglais-univ-pub
+    name: franï¿½ais-vs-anglais-univ-pub
     env: python
     plan: free
     # A requirements.txt file must exist
