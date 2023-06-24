@@ -33,7 +33,7 @@ df = preproc.delete_duplicate_disciplines(df)
 stackedbar_default_options = [
                         {'label': 'Sciences Humaines', 'value': 'sciences humaines'},
                         {'label': 'Sciences Naturelles', 'value': 'sciences naturelles'},
-                        {'label': 'Programme individualisé ou inconnu', 'value': 'inclassable'}
+                        {'label': 'Programme individualisé ou inconnu', 'value': "programme individualisé ou inconnu"}
                     ]
 stacked_bar_down_options = [
                         {'label': "Niveau d'études", 'value': 'grade'},
@@ -391,7 +391,7 @@ def update_radio_buttons(dropdown_value):
                         {"label": "All", "value": "all"},
                         {"label": "Sciences Humaines", "value": "sciences humaines"},
                         {"label": "Sciences Naturelles", "value": "sciences naturelles"},
-                        {"label": "Inclassable", "value": "inclassable"},
+                        {"label": "Programme individualisé ou inconnu", "value": "programme individualisé ou inconnu"},
                     ],
                     value="all",
                     className="radio",
@@ -459,7 +459,7 @@ def update_radio_buttons_maitrise_doctorat(dropdown_value):
                         {"label": "All", "value": "all"},
                         {"label": "Sciences Humaines", "value": "sciences humaines"},
                         {"label": "Sciences Naturelles", "value": "sciences naturelles"},
-                        {"label": "Inclassable", "value": "inclassable"},
+                        {"label": "Programme individualisé ou inconnu", "value": "programme individualisé ou inconnu"},
                     ],
                     value="all",
                     className="radio",
@@ -509,7 +509,7 @@ def update_maitrise_doctorat_content(dropdown_value, radio_value):
                 filtered_df_doctorat["domaine"] == radio_value
             ]
             context_title = " in " + str(radio_value)
-            if radio_value == "inclassable":
+            if radio_value == "programme individualisé ou inconnu":
                 context_title = " in other and personalized domaines"
     elif dropdown_value == "langue":
         context_title = " written in all languages"
