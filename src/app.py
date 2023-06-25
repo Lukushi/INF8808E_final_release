@@ -19,6 +19,11 @@ from sunburstchart import sunburst
 from radar_chart import init_figure, update_graph
 
 
+# Create the Dash app
+app = dash.Dash(__name__)
+server = app.server
+
+
 # Load the dataset
 df = pd.read_csv("assets/data/thesesMemoiresQC2000-2022-v20230508-1.csv", na_values="?")
 df = preproc.to_lowercase(df)
@@ -41,8 +46,6 @@ stacked_bar_down_options = [
                         {'label': 'Nombre de pages', 'value': 'range of pages'}
                     ]
 
-# Create the Dash app
-app = dash.Dash(__name__)
 
 # Navbar
 navbar = html.Nav(
