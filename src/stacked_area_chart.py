@@ -3,7 +3,6 @@ import pandas as pd
 from preprocess import other_languages, other_univ, rename_languages, rename_inclassable, get_top_univ
 from hover_template import get_hover_stacked_area_chart
 
-
 def get_figure(df, y_axis, mode):
 
     titles = {'univ': 'Université',
