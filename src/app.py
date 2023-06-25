@@ -8,7 +8,6 @@ from dash.dependencies import Input, Output, State
 
 import preprocess as preproc
 from box_plot import overview_box_plot, mvd_box_plot
-import helper
 import callback
 import template
 from template import external_css
