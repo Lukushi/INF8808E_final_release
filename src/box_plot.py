@@ -41,7 +41,7 @@ def overview_box_plot(filtered_df, context_title):
 
     return fig
 
-def mvd_box_plot(filtered_df_maitrise, filtered_df_doctorat, context_title=):
+def mvd_box_plot(filtered_df_maitrise, filtered_df_doctorat, context_title):
     '''
         return Box plots of the number of pages per year for Doctorat vs Maîtrise.
     '''
