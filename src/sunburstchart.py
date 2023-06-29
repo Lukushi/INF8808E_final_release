@@ -79,10 +79,10 @@ def sunburst(df, mode):
         ))
         fig.update_layout(width=700, height=700,
                           title='La répartition des langues dans'
-                                'différents domaines',
+                                ' différents domaines',
                           annotations=[dict(
                             text="Cliquez sur chaque partie de domaine pour"
-                                 "voir plus de détails.",
+                                 " voir plus de détails.",
                             x=-0.05, y=1.05,
                             showarrow=False,
                             font=dict(size=12, color='black'),
@@ -140,11 +140,11 @@ def sunburst(df, mode):
         ))
 
         fig.update_layout(width=700, height=700,
-                          title='La répartition des meilleures universités '
-                                'dans différents domaines',
+                          title='La répartition des meilleures universités'
+                                ' dans différents domaines',
                           annotations=[dict(
                               text='Cliquez sur chaque partie de domaine pour'
-                                   'voir plus de détails.',
+                                   ' voir plus de détails.',
                               x=-0.05, y=1.05,
                               showarrow=False,
                               font=dict(size=12, color='black'),
