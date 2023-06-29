@@ -1,29 +1,23 @@
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-
 import preprocess as preproc
 from box_plot import overview_box_plot, mvd_box_plot
 import callback
-import template
 from template import external_css
 import stacked_bar
 import stacked_area_chart
-from back_to_back_bar import back_to_back, distribution_language
+from back_to_back_bar import back_to_back
 from sunburstchart import sunburst
 from radar_chart import init_figure, update_graph
-
 
 # Create the Dash app
 app = dash.Dash(__name__)
 server = app.server
 
-
-# Load the dataset
+# Load the dataset and perform preprocessing
 df = pd.read_csv("assets/data/thesesMemoiresQC2000-2022-v20230508-1.csv", na_values="?")
 df = preproc.to_lowercase(df)
 df = preproc.assign_and_range_pages(df)
@@ -44,7 +38,6 @@ stacked_bar_down_options = [
                         {'label': 'Langues', 'value': 'langue'},
                         {'label': 'Nombre de pages', 'value': 'range of pages'}
                     ]
-
 
 
 # Navbar
@@ -110,30 +103,15 @@ navbar = html.Nav(
 footer = html.Footer(
     className="footer",
     children=[
-        html.P("Cette application Web a été développée en tant que projet dans le cadre du cours INF8808E de Polytechnic Montréal."),
+        html.P("Cette application Web a été développée en tant que projet dans le formidable cours INF8808E de Polytechnique Montréal."),
     ],
 )
-
-# App layout
-
-#image_path = "assets/header.jpg"
-
-def welcome_page():
-    return html.Div(className='welcome-page-container', children=[
-        html.Div(className='content', children=[
-            html.Div(className='welcome-title', children=[
-                'Études supérieures dans les universités québécoises entre 2000 et 2022'
-            ])
-        ]),
-    ])
-
 
 app.layout = html.Div(
     className="app-container",
     children=[
         dcc.Location(id="url", refresh=False),
-        html.Header([
-            welcome_page(),  
+        html.Header([ 
             navbar,
         ]),
         html.Div(id="page-content"),
@@ -141,9 +119,7 @@ app.layout = html.Div(
     ],
 )
 
-#for css in external_css:
-    #app.css.append_css({"external_url": css})
-
+# Apply the css style sheet
 app.css.external_stylesheets = external_css
 
 # Update active navlink color
@@ -159,7 +135,6 @@ app.css.external_stylesheets = external_css
 )
 def update_navlink_styles(pathname):
     return callback.update_navlink_styles(pathname)
-
 
 # Update page content based on URL pathname
 @app.callback(Output("page-content", "children"), Input("url", "pathname"))
@@ -189,15 +164,24 @@ def render_page_content(pathname):
                     className="section-title"
                 ),
                 html.P(
-                    "Stacked Area chart : affiche les tendances temporelles du nombre de publications en fonction de variables majeures telles que les domaines, les universités, les langues et les niveaux d'études. Ces informations peuvent être affichées en mode pourcentage ou comptage.",
+                    [
+                        html.B("Stacked Area chart"),
+                        ": affiche les tendances temporelles du nombre de publications en fonction de variables majeures telles que les domaines, les universités, les langues et les niveaux d'études. Ces informations peuvent être affichées en mode pourcentage ou comptage."
+                    ],
                     className="section-text"
                 ),
                 html.P(
-                    "Back to back chart : présente l'évolution de la répartition des langues entre les années et les diplômes (maîtrise et doctorat) dans les universités québécoises entre 2000 et 2022.",
+                    [
+                        html.B("Back to back chart"),
+                        ": présente l'évolution de la répartition des langues entre les années et les diplômes (maîtrise et doctorat) dans les universités québécoises entre 2000 et 2022."
+                    ],
                     className="section-text"
                 ),
                 html.P(
-                    "Box plot : montre l'évolution de la longueur des publications au fil des années en fonction des niveaux d'études, des domaines ou des langues.",
+                    [
+                        html.B("Box plot"),
+                        ": aussi appelé diagramme en boîte, montre l'évolution de la longueur des publications au fil des années en fonction des niveaux d'études, des domaines ou des langues."
+                    ],
                     className="section-text"
                 ),
                 html.H2(
@@ -205,15 +189,24 @@ def render_page_content(pathname):
                     className="section-title"
                 ),
                 html.P(
-                    "Stacked bar chart : donne un aperçu de la répartition des langues, des diplômes, des universités ou même du nombre de pages dans les différentes disciplines qui ont été catégorisées en fonction du domaine principal.",
+                    [
+                        html.B("Stacked bar chart"),
+                        ": donne un aperçu de la répartition des langues, des diplômes, des universités ou même du nombre de pages dans les différentes disciplines qui ont été catégorisées en fonction du domaine principal."
+                    ],
                     className="section-text"
                 ),
                 html.P(
-                    "Radar chart : présente des informations relatives aux différents types de diplômes (Maîtrise et doctorat). Ces informations peuvent être visualisées sur différentes universités ou sur les plus importantes disciplines existantes.",
+                    [
+                        html.B("Radar chart"),
+                        ": présente des informations relatives aux différents types de diplômes (Maîtrise et doctorat). Ces informations peuvent être visualisées sur différentes universités ou sur les plus importantes disciplines existantes."
+                    ],
                     className="section-text"
                 ),
                 html.P(
-                    "Sunburst chart : vise à montrer la répartition des langues des documents en fonction des domaines ou des universités.",
+                    [
+                        html.B("Sunburst chart"),
+                        ": vise à montrer la répartition des langues des documents en fonction des domaines ou des universités."
+                    ],
                     className="section-text"
                 ),
             ]
@@ -247,7 +240,7 @@ def render_page_content(pathname):
     elif pathname == "/stacked-bar":
         return html.Div(className="stacked-bar-content", children=[
             html.Header(children=[
-                html.Div([ html.Label("Domaine: ", style=dict(fontWeight='bold')), 
+                html.Div([ html.Label("Domaine : ", style=dict(fontWeight='bold')), 
                 dcc.RadioItems(
                     id='checkbox-1',
                     options=stackedbar_default_options,
@@ -255,7 +248,7 @@ def render_page_content(pathname):
                 ),
                  ], style=dict(display='flex')
                  ),
-                html.Div([ html.Label("Variable: ", style=dict(fontWeight='bold')), 
+                html.Div([ html.Label("Publications par : ", style=dict(fontWeight='bold')), 
                 dcc.RadioItems(
                     id='checkbox-2',
                     options= stacked_bar_down_options,
@@ -278,7 +271,7 @@ def render_page_content(pathname):
                     children=[
                         dcc.Graph(
                             id='radar-graph-univ',
-                            figure=init_figure()
+                            figure=init_figure(df)
                         ),
                     ],
                 ),
@@ -288,7 +281,7 @@ def render_page_content(pathname):
                     children=[
                         dcc.Graph(
                             id='radar-graph-discipline',
-                            figure=update_graph('discipline')
+                            figure=update_graph(df,'discipline')
                         ),
                     ],
                 ),
@@ -410,7 +403,7 @@ def render_page_content(pathname):
             ],
         )
 
-# Update radio buttons based on dropdown value
+# Update radio buttons based on dropdown value (box plot)
 @app.callback(
     Output("radio-container", "children"),
     Input("dropdown-value", "value"),
@@ -453,7 +446,7 @@ def update_radio_buttons(dropdown_value):
     else:
         return html.Div()
 
-# Update Overview tab content
+# Update Overview tab content (box plot)
 @app.callback(
     Output("overview-content", "children"),
     Input("dropdown-value", "value"),
@@ -488,7 +481,7 @@ def update_overview_content(dropdown_value, radio_value):
     return dcc.Graph(figure=fig)
 
 
-# Update radio buttons based on dropdown value for "Maîtrise vs Doctorat" tab
+# Update radio buttons based on dropdown value for "Maîtrise vs Doctorat" tab (box plot)
 @app.callback(
     Output("radio-container-maitrise-doctorat", "children"),
     Input("dropdown-value-maitrise-doctorat", "value"),
@@ -532,7 +525,7 @@ def update_radio_buttons_maitrise_doctorat(dropdown_value):
         return html.Div()
 
 
-# Update Maîtrise vs Doctorat tab content
+# Update Maîtrise vs Doctorat tab content (box plot)
 @app.callback(
     Output("maitrise-doctorat-content", "children"),
     Input("dropdown-value-maitrise-doctorat", "value"),
@@ -639,12 +632,12 @@ def update_stacked_bar(n_clicks, checkbox1_value, checkbox2_value):
 )
 def update_radar_chart(n_clicks, dropdown_univ_discipline_value):
     if n_clicks is not None:
-        figure = update_graph(dropdown_univ_discipline_value)
+        figure = update_graph(df,dropdown_univ_discipline_value)
         return figure
     else:
-        default_figure = init_figure()
+        default_figure = init_figure(df)
         return default_figure 
-# back to back
+# Back to back
 @app.callback(
     Output('btb-graph', 'figure'),
     [Input('button', 'n_clicks')],
