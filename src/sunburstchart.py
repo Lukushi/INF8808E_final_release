@@ -89,8 +89,8 @@ def sunburst(df, mode):
                             ),
                             dict(
                             text="Note: La classe de domaine du programme"
-                                 "individualisé et les autres langues ont été"
-                                 "exclues car elles sont illisibles.",
+                                 " individualisé et les autres langues ont été"
+                                 " exclues car elles sont illisibles.",
                             x=-0.15, y=-0.1,
                             showarrow=False,
                             font=dict(size=11, color='black'),
@@ -151,7 +151,7 @@ def sunburst(df, mode):
                           ),
                             dict(
                             text="Note: La classe de domaine du programme"
-                                 "individualisé a été exclue car elle est"
+                                 " individualisé a été exclue car elle est"
                                  " illisible.",
                             x=-0.15, y=-0.1,
                             showarrow=False,
