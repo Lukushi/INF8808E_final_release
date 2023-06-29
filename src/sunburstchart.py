@@ -152,7 +152,7 @@ def sunburst(df, mode):
                             dict(
                             text="Note: La classe de domaine du programme"
                                  "individualisé a été exclue car elle est"
-                                 "illisible.",
+                                 " illisible.",
                             x=-0.15, y=-0.1,
                             showarrow=False,
                             font=dict(size=11, color='black'),
