@@ -107,6 +107,7 @@ footer = html.Footer(
     ],
 )
 
+# App layout
 app.layout = html.Div(
     className="app-container",
     children=[
